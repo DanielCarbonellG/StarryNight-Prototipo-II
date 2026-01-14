@@ -1,9 +1,6 @@
 # 🌌 Starry Night
 
-Un experiencia inmersiva de Realidad Virtual para Android (Google Cardboard) donde el jugador debe explorar el cielo nocturno, descubrir constelaciones y utilizar interacciones físicas reales para avanzar.
-
-![Gif de Ejecución](ruta_o_url_de_tu_gif_aqui.gif)
-*(Sustituye esta línea por tu GIF animado del juego en funcionamiento)*
+Un experiencia inmersiva de Realidad Virtual para Android (Google Cardboard) donde el jugador debe explorar el cielo nocturno y descubrir constelaciones.
 
 ---
 
@@ -14,7 +11,6 @@ Para disfrutar de la experiencia correctamente, ten en cuenta lo siguiente:
 1.  **Hardware:** Necesitas un móvil Android con giroscopio y un visor tipo Google Cardboard.
 2.  **Permisos:** Al iniciar la app por primera vez, **debes aceptar el permiso de micrófono**. Es vital para una de las mecánicas principales.
 3.  **Entorno:** Juega en un lugar donde puedas girar 360° sobre ti mismo (silla giratoria o de pie).
-4.  **Audio:** Se recomienda usar auriculares para escuchar los efectos de completado y la atmósfera.
 
 ---
 
@@ -32,10 +28,6 @@ El desarrollo del proyecto ha puesto en práctica los siguientes conceptos clave
 * **Realidad Virtual (XR):**
     * Implementación de **Gaze Interaction** (Interacción por mirada) usando Raycasting físico (`Physics.Raycast`).
     * Configuración del **XR Plugin Management** con Google Cardboard.
-* **Optimización para Móviles:**
-    * Compilación en arquitectura **ARM64** con backend **IL2CPP**.
-    * Ajuste de API Levels (Min API 26) para compatibilidad con librerías modernas.
-    * Uso de `LineRenderer` optimizado para dibujar constelaciones.
 
 ---
 
