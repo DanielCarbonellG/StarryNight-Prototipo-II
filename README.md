@@ -1,6 +1,8 @@
 # 🌌 Starry Night
 
-Un experiencia inmersiva de Realidad Virtual para Android (Google Cardboard) donde el jugador debe explorar el cielo nocturno y descubrir constelaciones.
+Una experiencia inmersiva de Realidad Virtual para Android (Google Cardboard) donde el jugador debe explorar el cielo nocturno y descubrir constelaciones.
+
+![Gif de Ejecución](ruta_o_url_de_tu_gif_aqui.gif)
 
 ---
 
@@ -19,8 +21,8 @@ Para disfrutar de la experiencia correctamente, ten en cuenta lo siguiente:
 El desarrollo del proyecto ha puesto en práctica los siguientes conceptos clave de la asignatura:
 
 * **Scripting Avanzado en C#:**
-    * Uso de **Singletons** (`GameManager`, `AchievementManager`) para gestionar el estado global del juego.
-    * Implementación de **Corrutinas** (`IEnumerator`) para temporizadores y secuencias de animación.
+    * Uso de **Singletons** y Eventos estáticos (`GameEvents`, `ConstellationManager`) para gestionar el estado global del juego.
+    * Implementación de **Corrutinas** (`IEnumerator`) para temporizadores, secuencias de animación y capturas de pantalla.
     * Listas y Arrays para la gestión dinámica de estrellas y niveles.
 * **Interacción Multimodal (Sensores):**
     * Procesamiento de entrada de audio en tiempo real (`Microphone` class) para detectar soplidos.
@@ -35,10 +37,10 @@ El desarrollo del proyecto ha puesto en práctica los siguientes conceptos clave
 
 Lo que hace especial a esta aplicación:
 
-1.  **Mecánica de "Soplar":** No solo usamos botones; el jugador debe interactuar físicamente soplando al micrófono para [explicar brevemente: ej. limpiar nubes / encender estrellas].
+1.  **Mecánica de "Soplar/Hablar":** No solo usamos botones; el jugador debe interactuar físicamente soplando o hablando fuerte al micrófono para **tomar una foto (captura de pantalla)** de su descubrimiento.
 2.  **Feedback Visual y Sonoro:** Sistema de recompensas con partículas y sonidos ("Cling!") al conectar estrellas correctamente, reforzando la sensación de logro.
 3.  **Interfaz Diegética:** No hay menús flotantes molestos; la interfaz está integrada en el mundo (las propias estrellas y constelaciones).
-4.  **Sistema de Logros:** Detección automática de formas cerradas o constelaciones completadas.
+4.  **Entorno Dinámico:** El cielo empieza cubierto y el jugador debe interactuar físicamente para revelarlo.
 
 ---
 
@@ -49,8 +51,8 @@ Se han integrado y programado los siguientes sensores del dispositivo móvil:
 | Sensor | Uso en el Juego |
 | :--- | :--- |
 | **Giroscopio** | **Head Tracking:** Permite al usuario mirar alrededor del cielo estrellado moviendo la cabeza (Cámara VR). |
-| **Acelerómetro** | **Shake Detection:** Detecta cuando el usuario agita el móvil/cabeza para reiniciar el nivel o borrar líneas incorrectas. |
-| **Micrófono** | **Loudness Detection:** Analiza el volumen ambiental para detectar soplidos fuertes que activan eventos mágicos. |
+| **Acelerómetro** | **Shake Detection:** Detecta cuando el usuario agita el móvil para **disipar las nubes** y despejar el cielo (efecto de viento). |
+| **Micrófono** | **Loudness Detection:** Analiza el volumen ambiental para detectar soplidos fuertes que activan la cámara y **toman una fotografía** de la constelación. |
 
 ---
 
