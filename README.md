@@ -1,4 +1,4 @@
-# 🌌 Constelaciones VR: Viaje Estelar
+# 🌌 Starry Night
 
 Un experiencia inmersiva de Realidad Virtual para Android (Google Cardboard) donde el jugador debe explorar el cielo nocturno, descubrir constelaciones y utilizar interacciones físicas reales para avanzar.
 
