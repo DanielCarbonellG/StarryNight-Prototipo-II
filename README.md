@@ -126,3 +126,8 @@ Evaluación basada en las directrices de diseño para Realidad Virtual (Fuente: 
 * **`AudioManager.cs`**: Se encarga de la reproducción en bucle de la música ambiental y la gestión de los canales de audio al inicio de la escena.
 * **`EditorCameraMove.cs`**: Permite simular el movimiento de la cabeza con el ratón dentro del editor de Unity para facilitar las pruebas sin necesidad de compilar.
 
+---
+
+## Demo
+
+https://youtu.be/etfJ629rX_Q
