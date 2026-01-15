@@ -24,10 +24,31 @@ Para garantizar el correcto funcionamiento de la experiencia, el usuario debe te
 
 ---
 
-## 🚀 Hitos de Programación y Relación con la Asignatura
+## 🚀 Hitos de Programación y Relación con Contenidos Impartidos
 
+* **Realidad Virtual y Físicas:** Implementación del **Google Cardboard SDK** y uso de `SphereCast` (Raycasting avanzado) para la interacción por mirada (*Gaze*).
+* **Gráficos 3D:** Generación procedural de constelaciones en tiempo real usando `LineRenderer`.
+* **Arquitectura de Software:** Código mediante el **Patrón Observador** (Eventos y Delegados) en `GameEvents.cs`, demostrando dominio de *Scripts C#* y comunicación eficiente entre objetos.
+* **Interfaces Multimodales (Sensores):**
+    * **Micrófono:** Análisis del buffer de audio en tiempo real para detectar soplidos implementado en `PhotoMicSystem.cs`.
+    * **Acelerómetro:** Detectar sacudidas (*Shake*) y limpiar el cielo (*Tema: Sensores*) mediante `ShakeDetector.cs`.
+      
 ## ⭐ Aspectos Destacados de la Aplicación
 
+1.  **Interacción "Zero-Touch" (Manos Libres):**
+    La aplicación elimina la necesidad de mandos físicos o toques en pantalla. Toda la interacción se realiza mediante interfaces naturales: **mirada** (selección), **movimiento físico** (agitar para limpiar el cielo) y **sonido** (soplar/aplaudir para capturar), logrando una inmersión total.
+
+2.  **Uso Innovador del Micrófono (Procesamiento de Señal):**
+    A diferencia del reconocimiento de voz estándar, se ha implementado un análisis del buffer de audio en tiempo real en `PhotoMicSystem.cs`. El sistema detecta umbrales de intensidad sonora, permitiendo mecánicas analógicas como un "soplido" o palmada para activar el disparador de la cámara.
+
+3.  **Arquitectura de Software Desacoplada:**
+    Se utiliza el **Patrón Observador** mediante una clase estática de eventos (`GameEvents.cs`). Esto desacopla la lógica de los sensores (Micrófono, Acelerómetro) de la lógica del juego (Constelaciones, UI), resultando en un código modular, limpio y mantenible.
+
+4.  **Sistema de Mirada Asistida (Gaze Assist):**
+    Para resolver la imprecisión del *head tracking* en móviles, se ha implementado `Physics.SphereCast` en lugar de raycasting simple. Esto crea un área de detección volumétrica que facilita la selección de objetos pequeños (estrellas) a larga distancia, reduciendo la frustración del usuario.
+
+5.  **Integración Nativa Real:**
+    El proyecto gestiona permisos de Android en tiempo de ejecución y conecta con el sistema de archivos del SO. Las capturas no se quedan en la carpeta de datos de la app, sino que se exportan automáticamente a la **Galería pública del teléfono** mediante integración nativa.
 ---
 
 ## 📱 Sensores Utilizados (Interfaces Multimodales)
