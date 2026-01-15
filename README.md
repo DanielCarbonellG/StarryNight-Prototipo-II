@@ -1,85 +1,113 @@
-# 🌌 Starry Night
+# 🌌 StarryNight VR - Experiencia Inmersiva de Constelaciones
 
-Una experiencia inmersiva de Realidad Virtual para Android (Google Cardboard) donde el jugador debe explorar el cielo nocturno y descubrir constelaciones.
+**Repositorio GitHub:** [INSERTA AQUÍ EL ENLACE A TU GITHUB]
 
-![Gif de Ejecución](ruta_o_url_de_tu_gif_aqui.gif)
+## 📖 Descripción del Proyecto
+**StarryNight VR** es una experiencia relajante de realidad virtual para dispositivos móviles (Android / Google Cardboard) desarrollada en **Unity 6**. El objetivo es conectar estrellas para formar constelaciones en un entorno nocturno, utilizando interfaces multimodales (voz, movimiento y mirada) para interactuar con el mundo sin necesidad de mandos físicos.
 
 ---
 
-## 🚀 Cuestiones Importantes para el Uso
+## ⚠️ Cuestiones Importantes para el Uso
 
 Para disfrutar de la experiencia correctamente, ten en cuenta lo siguiente:
 
-1.  **Hardware:** Necesitas un móvil Android con giroscopio y un visor tipo Google Cardboard.
-2.  **Permisos:** Al iniciar la app por primera vez, **debes aceptar el permiso de micrófono**. Es vital para una de las mecánicas principales.
-3.  **Entorno:** Juega en un lugar donde puedas girar 360° sobre ti mismo (silla giratoria o de pie).
+1.  **Dispositivo:** Se requiere un móvil Android con giroscopio y acelerómetro funcional.
+2.  **Visor:** Necesario visor tipo Google Cardboard o compatible.
+3.  **Permisos:** Al iniciar la aplicación por primera vez, **debes conceder permisos** para:
+    * 🎙️ **Micrófono:** Para la mecánica de captura de fotos por soplido/aplauso.
+    * 📁 **Almacenamiento/Galería:** Para guardar las capturas de pantalla en el dispositivo.
+4.  **Reinicio:** Si el centro de la cámara no está alineado, mira hacia adelante y reinicia la aplicación (mirando al cubo de "Reiniciar") o usa el botón de "Recentar" si tu visor lo permite.
+5.  **Entorno:** Se recomienda jugar sentado en una silla giratoria o de pie con espacio para girar 360º.
 
 ---
 
 ## 🎯 Hitos de Programación y Contenidos Impartidos
 
-El desarrollo del proyecto ha puesto en práctica los siguientes conceptos clave de la asignatura:
+El proyecto demuestra el dominio de los siguientes conceptos técnicos vistos en la asignatura:
 
-* **Scripting Avanzado en C#:**
-    * Uso de **Singletons** y Eventos estáticos (`GameEvents`, `ConstellationManager`) para gestionar el estado global del juego.
-    * Implementación de **Corrutinas** (`IEnumerator`) para temporizadores, secuencias de animación y capturas de pantalla.
-    * Listas y Arrays para la gestión dinámica de estrellas y niveles.
-* **Interacción Multimodal (Sensores):**
-    * Procesamiento de entrada de audio en tiempo real (`Microphone` class) para detectar soplidos.
-    * Lectura del acelerómetro (`Input.acceleration`) para detectar gestos de agitación.
-* **Realidad Virtual (XR):**
-    * Implementación de **Gaze Interaction** (Interacción por mirada) usando Raycasting físico (`Physics.Raycast`).
-    * Configuración del **XR Plugin Management** con Google Cardboard.
+* **Migración y Toolchain Moderno:** Actualización exitosa del proyecto desde Unity 2022 a **Unity 6 (2023+)**, resolviendo conflictos de Gradle, Android Manifest y Target API 34+.
+* **Interfaces Multimodales (New Input System):** Implementación del nuevo sistema de entrada de Unity (`InputSystem`) para gestionar acelerómetro y teclado simultáneamente.
+* **Patrón Observador (Events):** Desacoplamiento del código mediante un sistema de eventos estáticos (`GameEvents.cs`). Los scripts no se conocen entre sí, solo escuchan eventos (`OnStarConnected`, `OnShakeDetected`), lo que hace el código modular y escalable.
+* **Raycasting Avanzado:** Uso de `Physics.SphereCast` (en lugar de Raycast simple) y **LayerMasks** para mejorar la precisión de la mirada en VR móvil, filtrando colisiones no deseadas (nubes, UI).
+* **Corrutinas y Máquinas de Estados:** Gestión de tiempos de espera, animaciones de UI (`FadeOut`) y lógica de captura de pantalla asíncrona mediante `IEnumerator`.
+* **Integración Nativa Android:** Uso de plugins externos (`NativeGallery`) y gestión de permisos en tiempo de ejecución (`UnityEngine.Android.Permission`) para interactuar con la galería del teléfono.
 
 ---
 
-## ⭐ Aspectos Destacados
+## ✨ Aspectos Destacados de la Aplicación
 
-Lo que hace especial a esta aplicación:
-
-1.  **Mecánica de "Soplar/Hablar":** No solo usamos botones; el jugador debe interactuar físicamente soplando o hablando fuerte al micrófono para **tomar una foto (captura de pantalla)** de su descubrimiento.
-2.  **Feedback Visual y Sonoro:** Sistema de recompensas con partículas y sonidos ("Cling!") al conectar estrellas correctamente, reforzando la sensación de logro.
-3.  **Interfaz Diegética:** No hay menús flotantes molestos; la interfaz está integrada en el mundo (las propias estrellas y constelaciones).
-4.  **Entorno Dinámico:** El cielo empieza cubierto y el jugador debe interactuar físicamente para revelarlo.
+1.  **Interacción "Hands-Free" (Manos Libres):** Todo el juego se controla sin tocar la pantalla, usando exclusivamente la cabeza (mirada y gestos) y la voz.
+2.  **Feedback Visual y Sonoro:** Sistema de retícula reactiva que se llena al mirar objetos interactuables, acompañado de cambios de color y audio espacial (ambiente vs. efectos).
+3.  **Mecánica de "Soplido" para Captura:** Innovación en la interfaz al usar el micrófono no para hablar, sino para detectar picos de volumen (soplidos o aplausos) para sacar fotos.
+4.  **Optimización para Móvil:** Uso de texturas ligeras, eliminación de colliders innecesarios y configuración de audio (`DecompressOnLoad` vs `Streaming`) para evitar latencia en dispositivos de gama media (como Samsung A50).
 
 ---
 
-## 📱 Sensores Incluidos (Interfaces Multimodales)
+## 📡 Sensores Incluidos (Interfaces Multimodales)
 
-Se han integrado y programado los siguientes sensores del dispositivo móvil:
+Se han implementado y trabajado los siguientes sensores del dispositivo móvil:
 
-| Sensor | Uso en el Juego |
-| :--- | :--- |
-| **Giroscopio** | **Head Tracking:** Permite al usuario mirar alrededor del cielo estrellado moviendo la cabeza (Cámara VR). |
-| **Acelerómetro** | **Shake Detection:** Detecta cuando el usuario agita el móvil para **disipar las nubes** y despejar el cielo (efecto de viento). |
-| **Micrófono** | **Loudness Detection:** Analiza el volumen ambiental para detectar soplidos fuertes que activan la cámara y **toman una fotografía** de la constelación. |
+| Sensor | Uso en el Proyecto | Script Principal |
+| :--- | :--- | :--- |
+| **Giroscopio** | Control de la cámara principal (Head Tracking). Permite al usuario mirar alrededor del escenario 360º. | `TrackedPoseDriver` (Unity System) |
+| **Acelerómetro** | Detección de gestos bruscos ("Shake"). El usuario debe sacudir la cabeza para disipar las nubes que bloquean la visión. | `ShakeDetector.cs` |
+| **Micrófono** | Análisis del buffer de audio en tiempo real para detectar umbrales de volumen. Se usa para activar la captura de pantalla. | `PhotoMicSystem.cs` |
+
+---
+
+## 🎥 Gif Animado de Ejecución
+
+![Demo del Juego](demo_juego.gif)
+
+*(Asegúrate de subir el archivo .gif a la carpeta del repositorio y que el nombre coincida)*
 
 ---
 
 ## 📝 Acta de Acuerdos del Grupo
 
+**Integrantes del equipo:**
+* [Nombre del Alumno 1]
+* [Nombre del Alumno 2] (Si aplica)
+
 **Reparto de Tareas:**
 
-| Integrante | Rol / Tareas Principales |
-| :--- | :--- |
-| **[Tu Nombre]** | Programación de sensores (Micrófono/Acelerómetro), Configuración de Unity y Android Build (Gradle), Lógica del GameManager. |
-| **[Nombre 2]** | Diseño de niveles (colocación de estrellas), Búsqueda de Assets (Sonidos/Modelos), Diseño de UI. |
-| **[Nombre 3]** | Programación del LineRenderer, Mecánica de Gaze Interaction, Documentación. |
+| Tarea | Responsable | Estado |
+| :--- | :--- | :--- |
+| Diseño del escenario y Assets 3D | [Nombre] | ✅ Completado |
+| Programación de mecánicas VR (Gaze) | [Nombre] | ✅ Completado |
+| Implementación de Sensores (Mic/Acelerómetro) | [Nombre] | ✅ Completado |
+| Gestión de Audio y UI | [Nombre] | ✅ Completado |
+| Migración a Unity 6 y solución de errores | [Nombre] | ✅ Completado |
+| Documentación y Build Android | [Nombre] | ✅ Completado |
 
-*Nota: Todas las decisiones de diseño se tomaron por consenso en las reuniones semanales.*
+*Todas las decisiones de diseño, como la estética "Low Poly" y la paleta de colores nocturna, fueron consensuadas en reuniones de seguimiento.*
 
 ---
 
-## ✅ Check-list de Diseño de Aplicaciones de RV
+## ✅ Check-list de Recomendaciones de Diseño VR
 
-Evaluación de buenas prácticas de diseño VR aplicadas al proyecto:
+A continuación se detalla cómo se han aplicado las recomendaciones de diseño para evitar el *motion sickness* y mejorar la usabilidad:
 
-| Criterio de Diseño | Estado | Observaciones |
+| Recomendación | Estado | Justificación / Implementación |
 | :--- | :--- | :--- |
-| **Evitar cinetosis (Motion Sickness)** | **Se contempla** | El movimiento es 100% controlado por el usuario (no hay movimiento artificial de cámara), manteniendo frames estables. |
-| **Interfaz de Usuario (UI) Espacial** | **Se contempla** | Los textos y avisos están en "World Space" a una distancia cómoda de lectura, no pegados a la cara. |
-| **Zona de Confort (Cuello)** | **Se contempla** | Las estrellas principales están situadas mayoritariamente en la línea del horizonte para evitar mirar mucho tiempo hacia arriba o abajo. |
-| **Feedback Inmediato** | **Se contempla** | Las estrellas se iluminan al mirarlas (Hover) y suenan al conectarlas. |
-| **Escala del Mundo** | **Se contempla** | El tamaño de las estrellas y la distancia respetan una escala coherente para la estereoscopía. |
-| **Locomoción / Teletransporte** | **No aplica** | Es una experiencia estática (observación 360º), no requiere desplazamiento. |
-| **Audio Espacial** | **No se contempla** | Se usa audio estéreo estándar, suficiente para la mecánica actual. |
+| **Evitar aceleraciones bruscas de cámara** | **Se contempla** | El usuario controla la cámara al 100% con su cabeza. No hay movimiento artificial del personaje. |
+| **Horizonte estable** | **Se contempla** | El suelo y el cielo son referencias fijas que ayudan a la orientación. |
+| **Interfaz en el espacio del mundo (Diegética)** | **Se contempla** | Los menús y botones son objetos 3D integrados en la escena, no pegados a la cara del usuario. |
+| **Distancia de interacción cómoda** | **Se contempla** | Los menús flotan a 2-3 metros de distancia para evitar la fatiga visual (convergencia-acomodación). |
+| **Feedback inmediato** | **Se contempla** | Al mirar un botón, este cambia de color y la retícula se llena progresivamente ("Fuse button"). |
+| **Texto legible** | **Se contempla** | Se usa TextMeshPro con alto contraste y tamaño adecuado para la baja resolución de pantalla en VR. |
+| **Evitar rotaciones forzadas** | **Se contempla** | El usuario decide cuándo y dónde girar. |
+| **Locomoción** | **No aplica** | Es una experiencia estática (3DOF), no hay desplazamiento virtual. |
+
+---
+
+## 📂 Contenido del Entregable
+
+1.  **Paquete Unity (.unitypackage):** Proyecto completo exportado.
+2.  **Código Fuente (.zip):** Carpeta conteniendo exclusivamente la carpeta `Assets/Scripts` y este `README.md`.
+3.  **APK Generada:** Archivo `StarryNightVR.apk` listo para instalar.
+
+---
+
+### 📧 Contacto
+Para cualquier duda sobre la ejecución del proyecto, contactar con el equipo de desarrollo.
