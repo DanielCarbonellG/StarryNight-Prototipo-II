@@ -2,6 +2,8 @@
 
 **StarryNight VR** es una aplicación de Realidad Virtual diseñada para dispositivos Android con Google Cardboard. El proyecto explora los principios de las **Interfaces Multimodales**, permitiendo al usuario interactuar con un entorno nocturno mediante canales naturales: la mirada (atención visual), la voz/soplido (canal auditivo) y el movimiento físico (canal kinestésico).
 
+<img width="1307" height="609" alt="StarryNight_20260114_181417" src="https://github.com/user-attachments/assets/31773949-b70b-403d-8344-39484f89013a" />
+
 ---
 
 ## Manual de Uso y Cuestiones Importantes
