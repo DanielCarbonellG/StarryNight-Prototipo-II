@@ -103,14 +103,14 @@ Evaluación basada en las directrices de diseño para Realidad Virtual (Fuente: 
 | **Control del Movimiento (Anticipación)** | **Se contempla** | El usuario siempre tiene el control de hacia dónde mira. No se fuerza el movimiento de la cámara sin su input. |
 | **Mantenimiento del Head Tracking** | **Se contempla** | El seguimiento es 1:1 mediante el *Cardboard XR Plugin*. Si se pierde el foco, la aplicación no congela la imagen, sigue respondiendo. |
 | **Inicio de Interacción Controlado** | **Se contempla** | La experiencia no arranca automáticamente. Existe una escena de "Menú" donde el usuario debe validar que está listo mirando el botón "Start". |
-| **UI en el Campo de Visión** | **Se contempla** | Los menús y textos de feedback (como "Sopla para foto") aparecen frente al usuario a una distancia legible y se emplazan en el campo de vista. |
-| **Mecánica Gaze (Mirada como botón)** | **Se contempla** | Se utiliza un "Dwell Timer" (temporizador de espera) de 1.5s con feedback visual (retícula llenándose) para confirmar acciones. |
-| **Uso de Retícula** | **Se contempla** | La retícula está siempre presente para ayudar a apuntar a estrellas lejanas, cambiando su estado (fill amount) al interactuar y resaltando el punto de intersección. |
+| **UI en el Campo de Visión** | **Se contempla** | Los menús y textos de feedback (como "FOTO GUARDADA") aparecen frente al usuario a una distancia legible y se emplazan en el campo de vista. |
+| **Mecánica Gaze (Mirada como botón)** | **Se contempla** | Se utiliza un "Dwell Timer" (temporizador de espera) con feedback visual (botón cambiando de color) para confirmar acciones. |
+| **Uso de Retícula** | **Se contempla** | La retícula está siempre presente para ayudar a apuntar a estrellas lejanas. |
 | **Zonas de Confort (Viewing Zones)** | **Se contempla** | La mayoría de estrellas y menús se sitúan en la "Comfortable Content Zone" (±30° horizontal). Se evita forzar el cuello con ángulos extremos (>60° verticales). |
 | **Cambios de Brillo Suaves** | **Se contempla** | El entorno es oscuro (noche) y los elementos brillantes (estrellas/UI) no generan destellos repentinos. |
 | **Escala y Seguridad** | **Se contempla** | El entorno respeta la escala de un cielo abierto. Al ser una experiencia rotatoria (silla giratoria), se minimiza el riesgo de accidentes físicos. |
 | **Propiocepción (Representación del cuerpo)** | **No aplica** | Se ha optado por no renderizar manos ni cuerpo virtual para evitar la disonancia cognitiva al no tener mandos con seguimiento posicional. |
-| **Latencia de Audio (Inmersión)** | **Se contempla** | Respuesta inmediata (<20ms) del feedback auditivo al soplar o conectar estrellas. Uso de audio ambiental continuo. |
+| **Latencia de Audio (Inmersión)** | **No aplica** | No se ha implementado feedback auditivo al soplar o conectar estrellas, sólo uso de audio ambiental continuo. |
 
 ---
 
