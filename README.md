@@ -1,10 +1,6 @@
-# 🌌 StarryNight VR - Experiencia Inmersiva Multimodal
+# StarryNight VR
 
-**StarryNight VR** es una aplicación de Realidad Virtual diseñada para dispositivos Android con visor Google Cardboard. El proyecto explora los principios de las **Interfaces Multimodales**, permitiendo al usuario interactuar con un entorno nocturno onírico mediante canales naturales: la mirada (atención visual), la voz/soplido (canal auditivo) y el movimiento físico (canal kinestésico).
-
-## 🔗 Enlace al Repositorio
-
-**[[ENLACE AL REPOSITORIO](https://github.com/DanielCarbonellG/StarryNight-Prototipo-II.git)]**
+**StarryNight VR** es una aplicación de Realidad Virtual diseñada para dispositivos Android con Google Cardboard. El proyecto explora los principios de las **Interfaces Multimodales**, permitiendo al usuario interactuar con un entorno nocturno mediante canales naturales: la mirada (atención visual), la voz/soplido (canal auditivo) y el movimiento físico (canal kinestésico).
 
 ---
 
@@ -13,7 +9,7 @@
 Para garantizar el correcto funcionamiento de la experiencia, el usuario debe tener en cuenta:
 
 1. **Gestión de Permisos Críticos:**
-* Al iniciar, la app solicitará acceso al **Micrófono** y al **Almacenamiento Externo**. Es imperativo aceptarlos; de lo contrario, la mecánica de "soplar para capturar" y el guardado en galería fallarán silenciosamente.
+* Al iniciar, la app solicitará acceso al **Micrófono** y al **Almacenamiento Externo**. Es importante aceptarlos; de lo contrario, la mecánica de "soplar para capturar" y el guardado en galería fallarán silenciosamente.
 
 
 2. **Entorno Físico:**
@@ -23,68 +19,20 @@ Para garantizar el correcto funcionamiento de la experiencia, el usuario debe te
 
 3. **Interacciones:**
 * **Nubes:** Si la visión está bloqueada por nubes, agita la cabeza lateralmente ("No") con energía para dispersarlas.
-* **Estrellas:** Mantén la mirada fija sobre una estrella durante 1.5 segundos para conectarla a la constelación.
-* **Fotografía:** Sopla fuerte o emite un sonido alto para activar el flash y guardar una captura del cielo.
-
-
+* **Estrellas:** Pasa la mirada sobre una estrella para conectarla a la constelación.
+* **Fotografía:** Sopla fuerte o emite un sonido alto para guardar una captura del cielo en el dispositivo.
 
 ---
 
 ## 🚀 Hitos de Programación y Relación con la Asignatura
 
-El desarrollo del proyecto ha cubierto los siguientes hitos técnicos, aplicando los contenidos teóricos de Unity y C#:
-
-### 1. Arquitectura Desacoplada (Patrón Observer)
-
-Se ha implementado una clase estática `GameEvents` que actúa como bus de eventos.
-
-* **Logro:** Los sistemas de detección (`ShakeDetector`, `GazeInteraction`) no conocen a los sistemas de respuesta (`CloudManager`, `ConstellationManager`).
-* **Ventaja:** Permite escalar el proyecto sin crear dependencias circulares.
-
-### 2. Física y Raycasting Avanzado
-
-En lugar de un `Raycast` simple, se ha utilizado **`Physics.SphereCast`** en `GazeInteraction.cs`.
-
-* **Justificación:** El `SphereCast` proyecta una esfera a lo largo del rayo, creando un "volumen" de detección más grueso. Esto soluciona el problema de precisión en VR móvil, donde es difícil mantener la cabeza totalmente quieta para apuntar a objetos pequeños (como estrellas lejanas).
-
-### 3. Procesamiento de Señal de Audio en Tiempo Real
-
-En `PhotoMicSystem.cs` no solo se graba audio, sino que se analiza el buffer en tiempo real.
-
-* **Técnica:** Se extrae una ventana de muestras (`GetData`) y se calcula el promedio de amplitud absoluta para determinar el nivel de presión sonora (volumen). Esto permite usar el micrófono como un "sensor de viento/soplido" en lugar de un grabador de voz.
-
-### 4. Integración Nativa con Android
-
-Se ha puenteado la barrera entre Unity y el Sistema Operativo Android:
-
-* **Gestión de Permisos:** Uso de la librería `UnityEngine.Android.Permission` para solicitar autorización en tiempo de ejecución.
-* **Galería de Imágenes:** Implementación de escritura en disco y refresco de la galería nativa del móvil para que las fotos aparezcan inmediatamente fuera de la app.
-
-### 5. Optimización para Móvil (Cardboard)
-
-* Uso de **IL2CPP** y arquitectura **ARM64** para mejorar el rendimiento de la CPU.
-* Gestión eficiente de corrutinas (`IEnumerator`) para animaciones (fade out de nubes, feedback de UI) evitando el uso excesivo del `Update`.
-
----
-
 ## ⭐ Aspectos Destacados de la Aplicación
-
-1. **Multimodalidad Real (Fusión de Inputs):** La aplicación no depende de un solo canal. Combina inputs pasivos (giroscopio) con activos (voz y gestos), creando una experiencia rica donde el cuerpo entero actúa como controlador.
-2. **Sistema de Depuración Híbrido (PC/Móvil):**
-* Se ha desarrollado el script `EditorCameraMove.cs` que utiliza directivas de preprocesador (`#if UNITY_EDITOR`) para simular el giroscopio con el ratón.
-
-3. **Feedback de Usuario (UX):**
-* **Visual:** La retícula de carga ("Dwell timer") informa al usuario de que su mirada está surtiendo efecto.
-* **Auditivo:** Música ambiental en bucle sin costuras (`AudioManager`).
-* **Kinestésico:** La respuesta inmediata de las nubes al movimiento de la cabeza refuerza la sensación de presencia.
-
-
 
 ---
 
 ## 📱 Sensores Utilizados (Interfaces Multimodales)
 
-La aplicación hace uso intensivo de la sensórica integrada en el smartphone, procesando los datos crudos para convertirlos en interacciones semánticas:
+La aplicación hace uso de los sensores integrados en el móvil, procesando los datos para convertirlos en interacciones:
 
 | Sensor | Script | Procesamiento y Uso |
 | --- | --- | --- |
@@ -94,15 +42,10 @@ La aplicación hace uso intensivo de la sensórica integrada en el smartphone, p
 
 ---
 
-## 🎥 Gif Animado de Ejecución
-
-![Demo del Juego](GIF/StarryNight.mp4)
-
----
 
 ## 🤝 Acta de Acuerdos del Grupo
 
-El desarrollo se ha realizado siguiendo una metodología de trabajo colaborativo, dividiendo la implementación de sistemas clave y unificando el diseño final.
+El desarrollo se ha realizado dividiendo la implementación de sistemas clave y unificando el diseño final.
 
 ### Reparto de Tareas
 
@@ -111,18 +54,18 @@ El desarrollo se ha realizado siguiendo una metodología de trabajo colaborativo
 * **Sistemas de Input Físico:** Implementación completa de `ShakeDetector.cs` y gestión del acelerómetro con el nuevo Input System.
 * **Sistema de Audio y Permisos:** Desarrollo de `PhotoMicSystem.cs`, incluyendo el análisis de espectro de audio, gestión de permisos Android en tiempo de ejecución y la integración con la galería nativa.
 * **Arquitectura:** Diseño del sistema de eventos (`GameEvents.cs`) para desacoplar los scripts.
-* **Compilación:** Resolución de conflictos de Gradle y configuración del Player Settings para Android (API 26+, IL2CPP).
+* **Compilación:** Resolución de conflictos y configuración del Player Settings para Android.
+* **Testing:** Testing en dispositivo y correccion de errores.
 
 **Guillermo González Pineda:**
 
-* **Interacción Visual (Gaze):** Desarrollo de `GazeInteraction.cs` utilizando `SphereCast` para mejorar la precisión y programación de la lógica de "Dwell Time" (temporizadores de mirada).
+* **Interacción Visual (Gaze):** Desarrollo de `GazeInteraction.cs` utilizando `SphereCast` para mejorar la precisión y programación de la lógica de las miradas.
 * **Lógica de Juego:** Implementación de `ConstellationManager.cs` para la conexión de estrellas y renderizado de líneas.
-* **Entorno y Feedback:** Creación de `CloudManager.cs` (animación procedural de nubes) y `AudioManager.cs`. Diseño de la escena 3D, colocación de estrellas y diseño de la Interfaz de Usuario (UI).
+* **Entorno y Feedback:** Creación de `CloudManager.cs` (animación de nubes) y `AudioManager.cs`.
 
 ### Tareas Conjuntas
 
-* Diseño conceptual de la experiencia multimodal.
-* Testing iterativo en dispositivo físico (Samsung Galaxy A50).
+* Diseño conceptual del juego y diseño de la escena 3D, colocación de estrellas y diseño de la Interfaz de Usuario.
 * Creación del sistema de depuración para PC (`EditorCameraMove.cs`) para agilizar el trabajo en paralelo.
 
 ---
