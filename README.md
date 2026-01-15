@@ -4,7 +4,7 @@
 
 ---
 
-## ⚠️ Manual de Uso y Cuestiones Importantes
+## Manual de Uso y Cuestiones Importantes
 
 Para garantizar el correcto funcionamiento de la experiencia, el usuario debe tener en cuenta:
 
@@ -24,7 +24,7 @@ Para garantizar el correcto funcionamiento de la experiencia, el usuario debe te
 
 ---
 
-## 🚀 Hitos de Programación y Relación con Contenidos Impartidos
+## Hitos de Programación y Relación con Contenidos Impartidos
 
 * **Realidad Virtual y Físicas:** Implementación del **Google Cardboard SDK** y uso de `SphereCast` (Raycasting avanzado) para la interacción por mirada (*Gaze*).
 * **Gráficos 3D:** Generación procedural de constelaciones en tiempo real usando `LineRenderer`.
@@ -33,7 +33,7 @@ Para garantizar el correcto funcionamiento de la experiencia, el usuario debe te
     * **Micrófono:** Análisis del buffer de audio en tiempo real para detectar soplidos implementado en `PhotoMicSystem.cs`.
     * **Acelerómetro:** Detectar sacudidas (*Shake*) y limpiar el cielo (*Tema: Sensores*) mediante `ShakeDetector.cs`.
       
-## ⭐ Aspectos Destacados de la Aplicación
+## Aspectos Destacados de la Aplicación
 
 1.  **Interacción "Zero-Touch" (Manos Libres):**
     La aplicación elimina la necesidad de mandos físicos o toques en pantalla. Toda la interacción se realiza mediante interfaces naturales: **mirada** (selección), **movimiento físico** (agitar para limpiar el cielo) y **sonido** (soplar/aplaudir para capturar), logrando una inmersión total.
@@ -51,7 +51,7 @@ Para garantizar el correcto funcionamiento de la experiencia, el usuario debe te
     El proyecto gestiona permisos de Android en tiempo de ejecución y conecta con el sistema de archivos del SO. Las capturas no se quedan en la carpeta de datos de la app, sino que se exportan automáticamente a la **Galería pública del teléfono** mediante integración nativa.
 ---
 
-## 📱 Sensores Utilizados (Interfaces Multimodales)
+## Sensores Utilizados (Interfaces Multimodales)
 
 La aplicación hace uso de los sensores integrados en el móvil, procesando los datos para convertirlos en interacciones:
 
@@ -64,7 +64,7 @@ La aplicación hace uso de los sensores integrados en el móvil, procesando los 
 ---
 
 
-## 🤝 Acta de Acuerdos del Grupo
+## Acta de Acuerdos del Grupo
 
 El desarrollo se ha realizado dividiendo la implementación de sistemas clave y unificando el diseño final.
 
@@ -91,7 +91,7 @@ El desarrollo se ha realizado dividiendo la implementación de sistemas clave y 
 
 ---
 
-## ✅ Check-list de Diseño de Aplicaciones de RV
+## Check-list de Diseño de Aplicaciones de RV
 
 Evaluación basada en las directrices de diseño para Realidad Virtual (Fuente: *Diseño de aplicaciones de RV*, ULL):
 
@@ -109,3 +109,18 @@ Evaluación basada en las directrices de diseño para Realidad Virtual (Fuente: 
 | **Escala y Seguridad** | **Se contempla** | El entorno respeta la escala de un cielo abierto. Al ser una experiencia rotatoria (silla giratoria), se minimiza el riesgo de accidentes físicos. |
 | **Propiocepción (Representación del cuerpo)** | **No aplica** | Se ha optado por no renderizar manos ni cuerpo virtual para evitar la disonancia cognitiva al no tener mandos con seguimiento posicional. |
 | **Latencia de Audio (Inmersión)** | **Se contempla** | Respuesta inmediata (<20ms) del feedback auditivo al soplar o conectar estrellas. Uso de audio ambiental continuo. |
+
+---
+
+## Scripts implementados
+
+* **`GazeInteraction.cs`**: Controla la interacción principal mediante la mirada (*SphereCast*), permitiendo activar estrellas y botones al mantener la vista fija sobre ellos.
+* **`PhotoMicSystem.cs`**: Gestiona el micrófono para detectar soplidos o aplausos y captura la pantalla, guardando la imagen en la galería nativa del móvil.
+* **`ShakeDetector.cs`**: Utiliza el acelerómetro (Input System) para detectar sacudidas bruscas de cabeza y lanzar el evento de "despejar el cielo".
+* **`CloudManager.cs`**: Se suscribe al evento de sacudida para animar el desvanecimiento y desplazamiento de las nubes que bloquean la visión.
+* **`ConstellationManager.cs`**: Dibuja líneas visuales (*LineRenderer*) en tiempo real conectando la última estrella activada con la nueva para formar constelaciones.
+* **`GameEvents.cs`**: Implementa el patrón Observador mediante eventos estáticos para comunicar sistemas (sensores, UI, juego) sin generar dependencias directas.
+* **`GameManager.cs`**: Administra el ciclo de vida de la aplicación, incluyendo la lógica para reiniciar la escena o cerrar el juego.
+* **`AudioManager.cs`**: Se encarga de la reproducción en bucle de la música ambiental y la gestión de los canales de audio al inicio de la escena.
+* **`EditorCameraMove.cs`**: Permite simular el movimiento de la cabeza con el ratón dentro del editor de Unity para facilitar las pruebas sin necesidad de compilar.
+
