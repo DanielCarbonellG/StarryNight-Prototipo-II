@@ -1,113 +1,147 @@
-# 🌌 StarryNight VR - Experiencia Inmersiva de Constelaciones
+# 🌌 StarryNight VR - Experiencia Inmersiva Multimodal
 
-**Repositorio GitHub:** [INSERTA AQUÍ EL ENLACE A TU GITHUB]
+**StarryNight VR** es una aplicación de Realidad Virtual diseñada para dispositivos Android con visor Google Cardboard. El proyecto explora los principios de las **Interfaces Multimodales**, permitiendo al usuario interactuar con un entorno nocturno onírico mediante canales naturales: la mirada (atención visual), la voz/soplido (canal auditivo) y el movimiento físico (canal kinestésico).
 
-## 📖 Descripción del Proyecto
-**StarryNight VR** es una experiencia relajante de realidad virtual para dispositivos móviles (Android / Google Cardboard) desarrollada en **Unity 6**. El objetivo es conectar estrellas para formar constelaciones en un entorno nocturno, utilizando interfaces multimodales (voz, movimiento y mirada) para interactuar con el mundo sin necesidad de mandos físicos.
+## 🔗 Enlace al Repositorio
 
----
-
-## ⚠️ Cuestiones Importantes para el Uso
-
-Para disfrutar de la experiencia correctamente, ten en cuenta lo siguiente:
-
-1.  **Dispositivo:** Se requiere un móvil Android con giroscopio y acelerómetro funcional.
-2.  **Visor:** Necesario visor tipo Google Cardboard o compatible.
-3.  **Permisos:** Al iniciar la aplicación por primera vez, **debes conceder permisos** para:
-    * 🎙️ **Micrófono:** Para la mecánica de captura de fotos por soplido/aplauso.
-    * 📁 **Almacenamiento/Galería:** Para guardar las capturas de pantalla en el dispositivo.
-4.  **Reinicio:** Si el centro de la cámara no está alineado, mira hacia adelante y reinicia la aplicación (mirando al cubo de "Reiniciar") o usa el botón de "Recentar" si tu visor lo permite.
-5.  **Entorno:** Se recomienda jugar sentado en una silla giratoria o de pie con espacio para girar 360º.
+**[[ENLACE AL REPOSITORIO](https://github.com/DanielCarbonellG/StarryNight-Prototipo-II.git)]**
 
 ---
 
-## 🎯 Hitos de Programación y Contenidos Impartidos
+## ⚠️ Manual de Uso y Cuestiones Importantes
 
-El proyecto demuestra el dominio de los siguientes conceptos técnicos vistos en la asignatura:
+Para garantizar el correcto funcionamiento de la experiencia, el usuario debe tener en cuenta:
 
-* **Migración y Toolchain Moderno:** Actualización exitosa del proyecto desde Unity 2022 a **Unity 6 (2023+)**, resolviendo conflictos de Gradle, Android Manifest y Target API 34+.
-* **Interfaces Multimodales (New Input System):** Implementación del nuevo sistema de entrada de Unity (`InputSystem`) para gestionar acelerómetro y teclado simultáneamente.
-* **Patrón Observador (Events):** Desacoplamiento del código mediante un sistema de eventos estáticos (`GameEvents.cs`). Los scripts no se conocen entre sí, solo escuchan eventos (`OnStarConnected`, `OnShakeDetected`), lo que hace el código modular y escalable.
-* **Raycasting Avanzado:** Uso de `Physics.SphereCast` (en lugar de Raycast simple) y **LayerMasks** para mejorar la precisión de la mirada en VR móvil, filtrando colisiones no deseadas (nubes, UI).
-* **Corrutinas y Máquinas de Estados:** Gestión de tiempos de espera, animaciones de UI (`FadeOut`) y lógica de captura de pantalla asíncrona mediante `IEnumerator`.
-* **Integración Nativa Android:** Uso de plugins externos (`NativeGallery`) y gestión de permisos en tiempo de ejecución (`UnityEngine.Android.Permission`) para interactuar con la galería del teléfono.
+1. **Gestión de Permisos Críticos:**
+* Al iniciar, la app solicitará acceso al **Micrófono** y al **Almacenamiento Externo**. Es imperativo aceptarlos; de lo contrario, la mecánica de "soplar para capturar" y el guardado en galería fallarán silenciosamente.
+
+
+2. **Entorno Físico:**
+* Se requiere un espacio libre de obstáculos para girar 360º (silla giratoria recomendada).
+* El entorno debe ser moderadamente silencioso para evitar que el ruido ambiental active accidentalmente la cámara por el micrófono.
+
+
+3. **Interacciones:**
+* **Nubes:** Si la visión está bloqueada por nubes, agita la cabeza lateralmente ("No") con energía para dispersarlas.
+* **Estrellas:** Mantén la mirada fija sobre una estrella durante 1.5 segundos para conectarla a la constelación.
+* **Fotografía:** Sopla fuerte o emite un sonido alto para activar el flash y guardar una captura del cielo.
+
+
 
 ---
 
-## ✨ Aspectos Destacados de la Aplicación
+## 🚀 Hitos de Programación y Relación con la Asignatura
 
-1.  **Interacción "Hands-Free" (Manos Libres):** Todo el juego se controla sin tocar la pantalla, usando exclusivamente la cabeza (mirada y gestos) y la voz.
-2.  **Feedback Visual y Sonoro:** Sistema de retícula reactiva que se llena al mirar objetos interactuables, acompañado de cambios de color y audio espacial (ambiente vs. efectos).
-3.  **Mecánica de "Soplido" para Captura:** Innovación en la interfaz al usar el micrófono no para hablar, sino para detectar picos de volumen (soplidos o aplausos) para sacar fotos.
-4.  **Optimización para Móvil:** Uso de texturas ligeras, eliminación de colliders innecesarios y configuración de audio (`DecompressOnLoad` vs `Streaming`) para evitar latencia en dispositivos de gama media (como Samsung A50).
+El desarrollo del proyecto ha cubierto los siguientes hitos técnicos, aplicando los contenidos teóricos de Unity y C#:
+
+### 1. Arquitectura Desacoplada (Patrón Observer)
+
+Se ha implementado una clase estática `GameEvents` que actúa como bus de eventos.
+
+* **Logro:** Los sistemas de detección (`ShakeDetector`, `GazeInteraction`) no conocen a los sistemas de respuesta (`CloudManager`, `ConstellationManager`).
+* **Ventaja:** Permite escalar el proyecto sin crear dependencias circulares.
+
+### 2. Física y Raycasting Avanzado
+
+En lugar de un `Raycast` simple, se ha utilizado **`Physics.SphereCast`** en `GazeInteraction.cs`.
+
+* **Justificación:** El `SphereCast` proyecta una esfera a lo largo del rayo, creando un "volumen" de detección más grueso. Esto soluciona el problema de precisión en VR móvil, donde es difícil mantener la cabeza totalmente quieta para apuntar a objetos pequeños (como estrellas lejanas).
+
+### 3. Procesamiento de Señal de Audio en Tiempo Real
+
+En `PhotoMicSystem.cs` no solo se graba audio, sino que se analiza el buffer en tiempo real.
+
+* **Técnica:** Se extrae una ventana de muestras (`GetData`) y se calcula el promedio de amplitud absoluta para determinar el nivel de presión sonora (volumen). Esto permite usar el micrófono como un "sensor de viento/soplido" en lugar de un grabador de voz.
+
+### 4. Integración Nativa con Android
+
+Se ha puenteado la barrera entre Unity y el Sistema Operativo Android:
+
+* **Gestión de Permisos:** Uso de la librería `UnityEngine.Android.Permission` para solicitar autorización en tiempo de ejecución.
+* **Galería de Imágenes:** Implementación de escritura en disco y refresco de la galería nativa del móvil para que las fotos aparezcan inmediatamente fuera de la app.
+
+### 5. Optimización para Móvil (Cardboard)
+
+* Uso de **IL2CPP** y arquitectura **ARM64** para mejorar el rendimiento de la CPU.
+* Gestión eficiente de corrutinas (`IEnumerator`) para animaciones (fade out de nubes, feedback de UI) evitando el uso excesivo del `Update`.
 
 ---
 
-## 📡 Sensores Incluidos (Interfaces Multimodales)
+## ⭐ Aspectos Destacados de la Aplicación
 
-Se han implementado y trabajado los siguientes sensores del dispositivo móvil:
+1. **Multimodalidad Real (Fusión de Inputs):** La aplicación no depende de un solo canal. Combina inputs pasivos (giroscopio) con activos (voz y gestos), creando una experiencia rica donde el cuerpo entero actúa como controlador.
+2. **Sistema de Depuración Híbrido (PC/Móvil):**
+* Se ha desarrollado el script `EditorCameraMove.cs` que utiliza directivas de preprocesador (`#if UNITY_EDITOR`) para simular el giroscopio con el ratón.
 
-| Sensor | Uso en el Proyecto | Script Principal |
-| :--- | :--- | :--- |
-| **Giroscopio** | Control de la cámara principal (Head Tracking). Permite al usuario mirar alrededor del escenario 360º. | `TrackedPoseDriver` (Unity System) |
-| **Acelerómetro** | Detección de gestos bruscos ("Shake"). El usuario debe sacudir la cabeza para disipar las nubes que bloquean la visión. | `ShakeDetector.cs` |
-| **Micrófono** | Análisis del buffer de audio en tiempo real para detectar umbrales de volumen. Se usa para activar la captura de pantalla. | `PhotoMicSystem.cs` |
+3. **Feedback de Usuario (UX):**
+* **Visual:** La retícula de carga ("Dwell timer") informa al usuario de que su mirada está surtiendo efecto.
+* **Auditivo:** Música ambiental en bucle sin costuras (`AudioManager`).
+* **Kinestésico:** La respuesta inmediata de las nubes al movimiento de la cabeza refuerza la sensación de presencia.
+
+
+
+---
+
+## 📱 Sensores Utilizados (Interfaces Multimodales)
+
+La aplicación hace uso intensivo de la sensórica integrada en el smartphone, procesando los datos crudos para convertirlos en interacciones semánticas:
+
+| Sensor | Script | Procesamiento y Uso |
+| --- | --- | --- |
+| **Giroscopio / Acelerómetro (Fusión)** | *Google Cardboard Plugin* | **Head Tracking:** Procesa la orientación del dispositivo en cuaterniones para mover la cámara virtual (`TrackedPoseDriver`). |
+| **Acelerómetro (Raw)** | `ShakeDetector.cs` | **Reconocimiento de Gestos:** Se monitorea la magnitud cuadrática (`sqrMagnitude`) del vector de aceleración lineal. Si supera un umbral de sensibilidad (`2.0f`) ignorando la gravedad, se dispara el evento "Shake" (agitar). |
+| **Micrófono** | `PhotoMicSystem.cs` | **Detector de Umbral:** Se utiliza como sensor de intensidad sonora. No se emplea reconocimiento de voz (ASR), sino detección de picos de amplitud para simular un "disparador" por soplido. |
 
 ---
 
 ## 🎥 Gif Animado de Ejecución
 
-![Demo del Juego](demo_juego.gif)
-
-*(Asegúrate de subir el archivo .gif a la carpeta del repositorio y que el nombre coincida)*
+![Demo del Juego](GIF/PruebaStarryNight.gif)
 
 ---
 
-## 📝 Acta de Acuerdos del Grupo
+## 🤝 Acta de Acuerdos del Grupo
 
-**Integrantes del equipo:**
-* [Nombre del Alumno 1]
-* [Nombre del Alumno 2] (Si aplica)
+El desarrollo se ha realizado siguiendo una metodología de trabajo colaborativo, dividiendo la implementación de sistemas clave y unificando el diseño final.
 
-**Reparto de Tareas:**
+### Reparto de Tareas
 
-| Tarea | Responsable | Estado |
-| :--- | :--- | :--- |
-| Diseño del escenario y Assets 3D | [Nombre] | ✅ Completado |
-| Programación de mecánicas VR (Gaze) | [Nombre] | ✅ Completado |
-| Implementación de Sensores (Mic/Acelerómetro) | [Nombre] | ✅ Completado |
-| Gestión de Audio y UI | [Nombre] | ✅ Completado |
-| Migración a Unity 6 y solución de errores | [Nombre] | ✅ Completado |
-| Documentación y Build Android | [Nombre] | ✅ Completado |
+**Daniel Carbonell de Chaves:**
 
-*Todas las decisiones de diseño, como la estética "Low Poly" y la paleta de colores nocturna, fueron consensuadas en reuniones de seguimiento.*
+* **Sistemas de Input Físico:** Implementación completa de `ShakeDetector.cs` y gestión del acelerómetro con el nuevo Input System.
+* **Sistema de Audio y Permisos:** Desarrollo de `PhotoMicSystem.cs`, incluyendo el análisis de espectro de audio, gestión de permisos Android en tiempo de ejecución y la integración con la galería nativa.
+* **Arquitectura:** Diseño del sistema de eventos (`GameEvents.cs`) para desacoplar los scripts.
+* **Compilación:** Resolución de conflictos de Gradle y configuración del Player Settings para Android (API 26+, IL2CPP).
 
----
+**Guillermo González Pineda:**
 
-## ✅ Check-list de Recomendaciones de Diseño VR
+* **Interacción Visual (Gaze):** Desarrollo de `GazeInteraction.cs` utilizando `SphereCast` para mejorar la precisión y programación de la lógica de "Dwell Time" (temporizadores de mirada).
+* **Lógica de Juego:** Implementación de `ConstellationManager.cs` para la conexión de estrellas y renderizado de líneas.
+* **Entorno y Feedback:** Creación de `CloudManager.cs` (animación procedural de nubes) y `AudioManager.cs`. Diseño de la escena 3D, colocación de estrellas y diseño de la Interfaz de Usuario (UI).
 
-A continuación se detalla cómo se han aplicado las recomendaciones de diseño para evitar el *motion sickness* y mejorar la usabilidad:
+### Tareas Conjuntas
 
-| Recomendación | Estado | Justificación / Implementación |
-| :--- | :--- | :--- |
-| **Evitar aceleraciones bruscas de cámara** | **Se contempla** | El usuario controla la cámara al 100% con su cabeza. No hay movimiento artificial del personaje. |
-| **Horizonte estable** | **Se contempla** | El suelo y el cielo son referencias fijas que ayudan a la orientación. |
-| **Interfaz en el espacio del mundo (Diegética)** | **Se contempla** | Los menús y botones son objetos 3D integrados en la escena, no pegados a la cara del usuario. |
-| **Distancia de interacción cómoda** | **Se contempla** | Los menús flotan a 2-3 metros de distancia para evitar la fatiga visual (convergencia-acomodación). |
-| **Feedback inmediato** | **Se contempla** | Al mirar un botón, este cambia de color y la retícula se llena progresivamente ("Fuse button"). |
-| **Texto legible** | **Se contempla** | Se usa TextMeshPro con alto contraste y tamaño adecuado para la baja resolución de pantalla en VR. |
-| **Evitar rotaciones forzadas** | **Se contempla** | El usuario decide cuándo y dónde girar. |
-| **Locomoción** | **No aplica** | Es una experiencia estática (3DOF), no hay desplazamiento virtual. |
+* Diseño conceptual de la experiencia multimodal.
+* Testing iterativo en dispositivo físico (Samsung Galaxy A50).
+* Creación del sistema de depuración para PC (`EditorCameraMove.cs`) para agilizar el trabajo en paralelo.
 
 ---
 
-## 📂 Contenido del Entregable
+## ✅ Check-list de Diseño de Aplicaciones de RV
 
-1.  **Paquete Unity (.unitypackage):** Proyecto completo exportado.
-2.  **Código Fuente (.zip):** Carpeta conteniendo exclusivamente la carpeta `Assets/Scripts` y este `README.md`.
-3.  **APK Generada:** Archivo `StarryNightVR.apk` listo para instalar.
+Evaluación basada en las directrices de diseño para Realidad Virtual (Fuente: *Diseño de aplicaciones de RV*, ULL):
 
----
-
-### 📧 Contacto
-Para cualquier duda sobre la ejecución del proyecto, contactar con el equipo de desarrollo.
+| Directriz / Heurística | Estado | Implementación en StarryNight |
+| :--- | :---: | :--- |
+| **Mitigación del Mareo (Motion Sickness)** | **Se contempla** | El usuario permanece estático y controla la cámara con su cabeza (sin aceleraciones artificiales ni discrepancia visual-vestibular). |
+| **Control del Movimiento (Anticipación)** | **Se contempla** | El usuario siempre tiene el control de hacia dónde mira. No se fuerza el movimiento de la cámara sin su input. |
+| **Mantenimiento del Head Tracking** | **Se contempla** | El seguimiento es 1:1 mediante el *Cardboard XR Plugin*. Si se pierde el foco, la aplicación no congela la imagen, sigue respondiendo. |
+| **Inicio de Interacción Controlado** | **Se contempla** | La experiencia no arranca automáticamente. Existe una escena de "Menú" donde el usuario debe validar que está listo mirando el botón "Start". |
+| **UI en el Campo de Visión** | **Se contempla** | Los menús y textos de feedback (como "Sopla para foto") aparecen frente al usuario a una distancia legible y se emplazan en el campo de vista. |
+| **Mecánica Gaze (Mirada como botón)** | **Se contempla** | Se utiliza un "Dwell Timer" (temporizador de espera) de 1.5s con feedback visual (retícula llenándose) para confirmar acciones. |
+| **Uso de Retícula** | **Se contempla** | La retícula está siempre presente para ayudar a apuntar a estrellas lejanas, cambiando su estado (fill amount) al interactuar y resaltando el punto de intersección. |
+| **Zonas de Confort (Viewing Zones)** | **Se contempla** | La mayoría de estrellas y menús se sitúan en la "Comfortable Content Zone" (±30° horizontal). Se evita forzar el cuello con ángulos extremos (>60° verticales). |
+| **Cambios de Brillo Suaves** | **Se contempla** | El entorno es oscuro (noche) y los elementos brillantes (estrellas/UI) no generan destellos repentinos. |
+| **Escala y Seguridad** | **Se contempla** | El entorno respeta la escala de un cielo abierto. Al ser una experiencia rotatoria (silla giratoria), se minimiza el riesgo de accidentes físicos. |
+| **Propiocepción (Representación del cuerpo)** | **No aplica** | Se ha optado por no renderizar manos ni cuerpo virtual para evitar la disonancia cognitiva al no tener mandos con seguimiento posicional. |
+| **Latencia de Audio (Inmersión)** | **Se contempla** | Respuesta inmediata (<20ms) del feedback auditivo al soplar o conectar estrellas. Uso de audio ambiental continuo. |
