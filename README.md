@@ -96,7 +96,7 @@ La aplicación hace uso intensivo de la sensórica integrada en el smartphone, p
 
 ## 🎥 Gif Animado de Ejecución
 
-![Demo del Juego](GIF/PruebaStarryNight.gif)
+![Demo del Juego](GIF/StarryNight.mp4)
 
 ---
 
