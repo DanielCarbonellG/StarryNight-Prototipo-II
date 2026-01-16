@@ -95,7 +95,7 @@ El desarrollo se ha realizado dividiendo la implementación de sistemas clave y 
 
 ## Check-list de Diseño de Aplicaciones de RV
 
-Evaluación basada en las directrices de diseño para Realidad Virtual (Fuente: *Diseño de aplicaciones de RV*, ULL):
+Evaluación basada en las directrices de diseño para Realidad Virtual:
 
 | Directriz / Heurística | Estado | Implementación en StarryNight |
 | :--- | :---: | :--- |
